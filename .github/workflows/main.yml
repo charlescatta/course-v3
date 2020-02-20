@@ -1,0 +1,30 @@
+name: pages
+
+on:
+  push:
+    branches:
+      - pages
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        ref: pages
+        persist-credentials: false
+
+    - name: Install dependencies
+      run: cd fastai-video-browser && npm install
+
+    - name: Build
+      run: cd fastai-video-browser && npm run build 
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BASE_BRANCH: pages
+        BRANCH: gh-pages
+        FOLDER: fastai-video-browser/build
