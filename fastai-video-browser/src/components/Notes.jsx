@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 import ReactMarkdown from 'react-markdown';
-import PropTypes from 'prop-types';
-
-import CodeBlock from './CodeBlock';
-import { NOTES_URLS } from '../data';
 
 const StyledMarkdown = styled(ReactMarkdown)`
   padding: 12px 24px;
@@ -21,32 +18,34 @@ const StyledMarkdown = styled(ReactMarkdown)`
 
 const CACHE = {}
 
-const fetchLesson = async (id) => {
-  const cache = CACHE[id];
+const fetchURL = async (url) => {
+  const cache = CACHE[url];
   if (cache) return cache;
 
-  const res = await fetch(NOTES_URLS[id]);
+  const res = await fetch(url);
   const text = await res.text();
-  CACHE[id] = text;
+  CACHE[url] = text;
   return text;
 }
 
-const Notes = ({ lesson }) => {
+const CodeBlock = ({ language, value }) => (
+  <SyntaxHighlighter language={language}>
+    {value}
+  </SyntaxHighlighter>
+);
+
+const Notes = ({ url }) => {
   const [notes, setNotes] = useState('');
 
   useEffect(() => { 
-    fetchLesson(lesson)
+    fetchURL(url)
     .then(text => setNotes(text))
     .catch(err => console.error(err))
-  }, [lesson]);
+  }, [url]);
 
   return (
     <StyledMarkdown linkTarget="_blank" source={notes} renderers={{ code: CodeBlock }} />
   )
-}
-
-Notes.propTypes = {
-  lesson: PropTypes.number.isRequired
 }
 
 export default Notes
