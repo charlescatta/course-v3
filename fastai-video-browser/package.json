@@ -24,10 +24,6 @@
     "twin.macro": "^1.9.0",
     "use-query-params": "^1.1.8"
   },
-  "engineStrict": true,
-  "engines": {
-    "node": ">=13.7.0"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
