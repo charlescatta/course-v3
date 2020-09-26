@@ -299,7 +299,7 @@ export default () => {
               height="100%"
               onPlay={() => setVideoPlaying(true)}
               onPause={() => setVideoPlaying(false)}
-              css={[poped && tw`pointer-events-none`, tw`z-10`]}
+              css={[poped && tw`pointer-events-none`, tw`z-20`]}
               config={{ youtube: { playerVars: { playsinline: 1, modestbranding: 1 } } }}
               url={`https://www.youtube.com/embed/${lesson.video.src}`} />
           </div>

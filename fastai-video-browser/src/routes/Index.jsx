@@ -8,7 +8,7 @@ import data from '../data.json';
 
 const CourseCard = ({ course, slug, ...props }) => (
   <Link to={`/course/${slug}`}>
-    <div tw="shadow-md hover:shadow-lg transition-all duration-150 ease-out rounded-md overflow-hidden bg-white mx-2">
+    <div tw="shadow-md hover:shadow-lg transition-all duration-150 ease-out rounded-md overflow-hidden bg-white mx-2" {...props}>
       <div tw="bg-cover bg-center w-full h-48" style={{ backgroundImage: `url('https://picsum.photos/500?random=${slug}')` }}>
       </div>
       <h3 tw="mb-2 font-bold text-lg">{course.name}</h3>
